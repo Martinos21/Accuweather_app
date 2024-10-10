@@ -1,13 +1,15 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 
 namespace WeatherApp
 {
     public partial class MainPage : ContentPage
     {
         // AccuWeather API URL and key
-        private string apiUrl = "http://dataservice.accuweather.com/currentconditions/v1/1380799";
+        private string apiUrl = "https://dataservice.accuweather.com/currentconditions/v1/1380799";
         private string apiKey = "CpHhhtXACFLd3NMlTwHEhpYCRRuBv7qC";
 
         public MainPage()
@@ -32,12 +34,19 @@ namespace WeatherApp
                 string data = await FetchWeatherData();
 
                 // Display the raw JSON data in the label
-                WeatherDataLabel.Text = data;
+                JArray weatherdata = JArray.Parse(data);
+                double temp = (double)weatherdata[0]["Temperature"]["Metric"]["Value"];
+                string link = (string)weatherdata[0]["Link"];
+                string locatioName = link.Split('/')[5];
+                
+
+                LocationName.Text = locatioName[0].ToString().ToUpper()+locatioName.Substring(1);
+                Temperature.Text = temp.ToString()+ "°C";
             }
             catch (Exception ex)
             {
                 // Display error message if something goes wrong
-                WeatherDataLabel.Text = $"Error: {ex.Message}";
+                Temperature.Text = $"Error: {ex.Message}";
             }
         }
 
@@ -57,6 +66,7 @@ namespace WeatherApp
                 {
                     // Read and return the raw JSON data
                     string jsonData = await response.Content.ReadAsStringAsync();
+                    //System.Diagnostics.Debug.WriteLine(jsonData);
                     return jsonData;
                 }
                 else

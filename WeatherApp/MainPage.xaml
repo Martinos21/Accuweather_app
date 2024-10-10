@@ -5,16 +5,15 @@
 
     <VerticalStackLayout Padding="20" Spacing="25">
         <Label
-            Text="AccuWeather Data Fetcher"
+            x:Name="LocationName"
             FontSize="24"
             HorizontalOptions="Center" />
 
         <Label
-            x:Name="WeatherDataLabel"
-            FontSize="14"
-            TextColor="Black"
-            HorizontalOptions="Center"
-            VerticalOptions="CenterAndExpand" />
+            x:Name="Temperature"
+            FontSize="44"
+            TextColor="White"
+            HorizontalOptions="Center" />
     </VerticalStackLayout>
 
 </ContentPage>
