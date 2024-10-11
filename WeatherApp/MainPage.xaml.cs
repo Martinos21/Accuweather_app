@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using Microsoft.Maui.Devices.Sensors;
 
 namespace WeatherApp
 {
@@ -20,6 +21,11 @@ namespace WeatherApp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
+            Location location = await Geolocation.Default.GetLastKnownLocationAsync();
+
+            System.Diagnostics.Debug.WriteLine("----------------------"+location.Longitude+"----------------"+location.Latitude+"------------"+location.Altitude);
+
 
             // Call the FetchWeatherData function when the page is about to appear
             await FetchWeatherDataOnLoad();
@@ -76,5 +82,9 @@ namespace WeatherApp
                 }
             }
         }
+
+
+
+
     }
 }
