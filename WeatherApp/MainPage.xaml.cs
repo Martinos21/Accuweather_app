@@ -72,7 +72,7 @@ namespace WeatherApp
                 {
                     // Read and return the raw JSON data
                     string jsonData = await response.Content.ReadAsStringAsync();
-                    //System.Diagnostics.Debug.WriteLine(jsonData);
+                    System.Diagnostics.Debug.WriteLine(jsonData);
                     return jsonData;
                 }
                 else
