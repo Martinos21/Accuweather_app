@@ -14,6 +14,13 @@
             FontSize="44"
             TextColor="White"
             HorizontalOptions="Center" />
+
+        <Image
+            x:Name="WeatherPicture"
+            WidthRequest="60"
+            HeightRequest="60"
+            HorizontalOptions="Center"
+            />
     </VerticalStackLayout>
 
 </ContentPage>
