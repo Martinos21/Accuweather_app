@@ -17,10 +17,12 @@
 
         <Image
             x:Name="WeatherPicture"
-            WidthRequest="60"
-            HeightRequest="60"
+            WidthRequest="100"
+            HeightRequest="100"
             HorizontalOptions="Center"
             />
+        
+        
     </VerticalStackLayout>
 
 </ContentPage>

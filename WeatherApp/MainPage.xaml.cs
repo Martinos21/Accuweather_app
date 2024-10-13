@@ -13,7 +13,6 @@ namespace WeatherApp
     {
         // AccuWeather API URL and key
         
-        //private string apiUrl = $"https://dataservice.accuweather.com/currentconditions/v1/{locationKey}";
         private string apiKey = "CpHhhtXACFLd3NMlTwHEhpYCRRuBv7qC";
 
         // Accuweather API for current location data
@@ -32,7 +31,6 @@ namespace WeatherApp
 
 
             string LongLat = await GetKey();
-            System.Diagnostics.Debug.WriteLine("---------------------------"+LongLat);
 
 
             
@@ -60,11 +58,15 @@ namespace WeatherApp
                 
                 double temp = (double)weatherdata[0]["Temperature"]["Metric"]["Value"];
                 string link = (string)weatherdata[0]["Link"];
+                string iconNum = (string)weatherdata[0]["WeatherIcon"];
+                string pic = await PictureDecisionMaker(iconNum);
+                //System.Diagnostics.Debug.WriteLine(iconNum);
                 string locatioName = link.Split('/')[5];
                 
 
                 LocationName.Text = locatioName[0].ToString().ToUpper()+locatioName.Substring(1);
                 Temperature.Text = temp.ToString()+ "°C";
+                WeatherPicture.Source = pic;
             }
             catch (Exception ex)
             {
@@ -72,6 +74,61 @@ namespace WeatherApp
                 Temperature.Text = $"Error: {ex.Message}";
             }
         }
+
+        private async Task<string> PictureDecisionMaker(string numOfPic)
+        {
+            // Define the base path to the images
+            string imagePath = "Resources/Images/";
+
+            // Create a dictionary to map numbers to corresponding image filenames
+            var imageDictionary = new Dictionary<string, string>
+            {
+                { "1", "img1.png" },
+                { "2", "img2.png" },
+                { "3", "img3.png" },
+                { "6", "img6.png" },
+                { "7", "img7.png" },
+                { "11", "img11.png" },
+                { "12", "img12.png" },
+                { "13", "img13.png" },
+                { "14", "img14.png" },
+                { "15", "img15.png" },
+                { "16", "img16.png" },
+                { "17", "img17.png" },
+                { "18", "img18.png" },
+                { "19", "img19.png" },
+                { "21", "img21.png" },
+                { "22", "img22.png" },
+                { "23", "img23.png" },
+                { "25", "img25.png" },
+                { "26", "img26.png" },
+                { "30", "img30.png" },
+                { "31", "img31.png" },
+                { "32", "img32.png" },
+                { "33", "img33.png" },
+                { "34", "img34.png" },
+                { "35", "img35.png" },
+                { "36", "img36.png" },
+                { "37", "img37.png" },
+                { "38", "img38.png" },
+                { "39", "img39.png" },
+                { "40", "img40.png" },
+                { "41", "img41.png" },
+                { "42", "img42.png" },
+                { "43", "img43.png" },
+                { "44", "img44.png" }
+            };
+
+            // Check if the input exists in the dictionary and return the image path
+            if (imageDictionary.TryGetValue(numOfPic, out string fileName))
+            {
+                return fileName;
+            }
+
+            // If no matching image is found, return a default or error message
+            return "Image not found";
+        }
+
 
         // Function to fetch weather data from API
         private async Task<string> FetchWeatherData(string locationKey)
@@ -112,9 +169,7 @@ namespace WeatherApp
                 if (response.IsSuccessStatusCode)
                 {
                     string jsonData = await response.Content.ReadAsStringAsync ();
-                    //JArray data = JArray.Parse (jsonData);
-                    //string locationKey = (string)data[0]["Key"];
-                    //System.Diagnostics.Debug.WriteLine("Location key jeeeeeeee------"+locationKey);
+
                     return jsonData;
                 }
                 else
