@@ -33,8 +33,9 @@ namespace WeatherApp
             string LongLat = await GetKey();
 
 
-            
+            Console.WriteLine("---------------------------------------------");
             await FetchWeatherDataOnLoad(LongLat);
+            Console.WriteLine("awwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" + LongLat);
         }
 
         // Method to handle weather data fetching on page load
@@ -44,12 +45,12 @@ namespace WeatherApp
             {
                 // Fetch weather data asynchronously
                 string locationKey = await FetchLocationData(q);
-                System.Diagnostics.Debug.WriteLine("dadddddddddddddddddddddddddddddddd" + locationKey);
+                Console.WriteLine("dadddddddddddddddddddddddddddddddd" + locationKey);
                 JObject key = JObject.Parse(locationKey);
                 string location = (string)key["Key"];
                 //System.Diagnostics.Debug.WriteLine("dadddddddddddddddddddddddddddddddd" + location);
                 string data = await FetchWeatherData(location);
-                System.Diagnostics.Debug.WriteLine("adadaadadadadadada"+data);
+                Console.WriteLine("adadaadadadadadada"+data);
 
 
                 // Display the raw JSON data in the label
@@ -182,6 +183,13 @@ namespace WeatherApp
         private async Task<string> GetKey()
         {
             Location location = await Geolocation.Default.GetLastKnownLocationAsync();
+
+            /*if (location == null)
+            {
+                // Handle the case where location is not available
+                await DisplayAlert("Error", "Location is unavailable. Please check location services.", "OK");
+                return null;
+            }*/
 
             q = location.Latitude.ToString() + "," + location.Longitude.ToString();
 
