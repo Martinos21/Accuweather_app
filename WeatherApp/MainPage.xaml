@@ -1,30 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherApp.MainPage">
-
-    <VerticalStackLayout Padding="20" Spacing="25">
-        <Label
-            x:Name="LocationName"
-            FontSize="24"
-            HorizontalOptions="Center" />
-
-        <Label
-            x:Name="Temperature"
-            FontSize="44"
-            TextColor="White"
-            HorizontalOptions="Center" />
-
+    <StackLayout>
+        <Label x:Name="LocationLabel"/>
+        <Label x:Name="TemperatureLabel" Text="Temperature: " HorizontalOptions="Center"/>
+        <Label x:Name="WeatherIconLabel" Text="Weather Icon: " HorizontalOptions="Center"/>
         <Image
-            x:Name="WeatherPicture"
-            WidthRequest="100"
-            HeightRequest="100"
-            HorizontalOptions="Center"
-            />
-        
-        
-    </VerticalStackLayout>
-
+               x:Name="WeatherPicture"
+               WidthRequest="100"
+               HeightRequest="100"
+               HorizontalOptions="Center"/>
+        <Label x:Name="HumidityLabel" Text="Humidity: " HorizontalOptions="Center"/>
+        <Label x:Name="WindSpeedLabel" Text="Wind Speed: " HorizontalOptions="Center"/>
+        <Label x:Name="UVIndexLabel" Text="UV Index: " HorizontalOptions="Center"/>
+    </StackLayout>
 </ContentPage>
+
 
 

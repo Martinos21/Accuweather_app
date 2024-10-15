@@ -1,81 +1,167 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using Microsoft.Maui.Controls;
+using Microsoft.Maui.Devices.Sensors; // Required for Geolocation
 using Newtonsoft.Json.Linq;
-using System;
-using Microsoft.Maui.Devices.Sensors;
 
 
 namespace WeatherApp
 {
-    
     public partial class MainPage : ContentPage
     {
-        // AccuWeather API URL and key
-        
-        private string apiKey = "CpHhhtXACFLd3NMlTwHEhpYCRRuBv7qC";
+        private readonly string apiKey = "CpHhhtXACFLd3NMlTwHEhpYCRRuBv7qC"; // Replace with your actual API key
 
-        // Accuweather API for current location data
-        private string apiUrlLocation = "http://dataservice.accuweather.com/locations/v1/cities/geoposition/search";
-
-        private string q;
-        
         public MainPage()
         {
             InitializeComponent();
+            FetchAndDisplayWeatherData();
         }
 
-        protected override async void OnAppearing()
+        // Method to fetch and display weather data
+        private async void FetchAndDisplayWeatherData()
         {
-            base.OnAppearing();
+            string q = await GetLocationCoordinates();
+            Console.WriteLine(q + "a-------------------------------------------------------------");
+
+            if (q != null)
+            {
+                // Call a method to fetch the location key based on latitude and longitude
+                var (locationKey, localizedName) = await FetchLocationKey(q);
 
 
-            string LongLat = await GetKey();
+                // Now use the location key to fetch the weather data
+                await FetchWeatherDataAndUpdateUI(locationKey);
 
-
-            Console.WriteLine("---------------------------------------------");
-            await FetchWeatherDataOnLoad(LongLat);
-            Console.WriteLine("awwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww" + LongLat);
+                // Display the raw JSON response in the label
+                //JsonResponseLabel.Text = jsonData;
+                LocationLabel.Text = localizedName;
+            }
+            else
+            {
+                // Handle case where location is unavailable
+                await DisplayAlert("Error", "Unable to fetch location.", "OK");
+            }
         }
 
-        // Method to handle weather data fetching on page load
-        private async Task FetchWeatherDataOnLoad(string q)
+        // Method to fetch weather data from the API
+        private async Task FetchWeatherDataAndUpdateUI(string locationKey)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string apiUrl = $"https://dataservice.accuweather.com/currentconditions/v1/{locationKey}";
+                string fullUrl = $"{apiUrl}?apikey={apiKey}&language=en&details=true";
+
+                // Make the GET request
+                HttpResponseMessage response = await client.GetAsync(fullUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Read the JSON response
+                    string jsonData = await response.Content.ReadAsStringAsync();
+
+                    // Parse the JSON response (the response is an array)
+                    JArray jsonArray = JArray.Parse(jsonData);
+                    JObject weatherData = (JObject)jsonArray[0];  // Access the first item in the array
+
+                    // Extract required fields
+                    double temperature = (double)weatherData["Temperature"]["Metric"]["Value"];
+                    int weatherIcon = (int)weatherData["WeatherIcon"];
+                    int relativeHumidity = (int)weatherData["RelativeHumidity"];
+                    double windSpeed = (double)weatherData["Wind"]["Speed"]["Metric"]["Value"];
+                    string windUnit = (string)weatherData["Wind"]["Speed"]["Metric"]["Unit"];
+                    int uvIndex = (int)weatherData["UVIndex"];
+
+                    // Assign each value to its respective label
+                    TemperatureLabel.Text = $"Temperature: {temperature}°C";
+                    WeatherIconLabel.Text = $"Weather Icon: {weatherIcon}";
+                    WeatherPicture.Source = await PictureDecisionMaker(weatherIcon.ToString());
+                    HumidityLabel.Text = $"Humidity: {relativeHumidity}%";
+                    WindSpeedLabel.Text = $"Wind Speed: {windSpeed} {windUnit}";
+                    UVIndexLabel.Text = $"UV Index: {uvIndex}";
+                }
+                else
+                {
+                    // Handle error responses
+                    await DisplayAlert("Error", $"Unable to fetch weather data: {response.StatusCode}", "OK");
+                }
+            }
+        }
+
+
+        // Method to get the current location coordinates (latitude, longitude)
+        private async Task<string> GetLocationCoordinates()
         {
             try
             {
-                // Fetch weather data asynchronously
-                string locationKey = await FetchLocationData(q);
-                Console.WriteLine("dadddddddddddddddddddddddddddddddd" + locationKey);
-                JObject key = JObject.Parse(locationKey);
-                string location = (string)key["Key"];
-                //System.Diagnostics.Debug.WriteLine("dadddddddddddddddddddddddddddddddd" + location);
-                string data = await FetchWeatherData(location);
-                Console.WriteLine("adadaadadadadadada"+data);
+                Location location = await Geolocation.Default.GetLastKnownLocationAsync();
 
+                if (location == null)
+                {
+                    // Handle the case where location is not available
+                    await DisplayAlert("Error", "Location is unavailable. Please check location services.", "OK");
+                    return null;
+                }
 
-                // Display the raw JSON data in the label
-                
-                JArray weatherdata = JArray.Parse(data);
-                
-                double temp = (double)weatherdata[0]["Temperature"]["Metric"]["Value"];
-                string link = (string)weatherdata[0]["Link"];
-                string iconNum = (string)weatherdata[0]["WeatherIcon"];
-                string pic = await PictureDecisionMaker(iconNum);
-                //System.Diagnostics.Debug.WriteLine(iconNum);
-                string locatioName = link.Split('/')[5];
-                
-
-                LocationName.Text = locatioName[0].ToString().ToUpper()+locatioName.Substring(1);
-                Temperature.Text = temp.ToString()+ "°C";
-                WeatherPicture.Source = pic;
+                // Combine latitude and longitude into a single string format
+                string q = $"{location.Latitude},{location.Longitude}";
+                return q;
             }
             catch (Exception ex)
             {
-                // Display error message if something goes wrong
-                Temperature.Text = $"Error: {ex.Message}";
+                // Handle any exceptions related to geolocation
+                await DisplayAlert("Error", $"An error occurred while retrieving location: {ex.Message}", "OK");
+                return null;
             }
         }
 
+        // Method to fetch the location key based on latitude and longitude
+        private async Task<(string LocationKey, string LocalizedName)> FetchLocationKey(string coordinates)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string apiUrl = $"https://dataservice.accuweather.com/locations/v1/cities/geoposition/search";
+                string fullUrl = $"{apiUrl}?apikey={apiKey}&q={coordinates}&language=en";
+
+                // Make the GET request to fetch the location key
+                HttpResponseMessage response = await client.GetAsync(fullUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Read the JSON response
+                    string jsonData = await response.Content.ReadAsStringAsync();
+
+                    // Parse the JSON data to extract the 'Key' and 'LocalizedName' fields
+                    JObject jsonObject = JObject.Parse(jsonData);
+
+                    // Extract the location key
+                    string locationKey = (string)jsonObject["Key"];
+
+                    // Extract the localized name (e.g., city name)
+                    string localizedName = (string)jsonObject["LocalizedName"];
+
+                    return (locationKey, localizedName);
+                }
+                else
+                {
+                    // Handle error responses
+                    await DisplayAlert("Error", $"Unable to fetch location key: {response.StatusCode}", "OK");
+                    return (null, null);
+                }
+            }
+        }
+        /*private string PictureDecisionMaker(string iconNum)
+        {
+            // Ensure iconNum is a valid number and within range
+            if (int.TryParse(iconNum, out int iconNumber) && iconNumber >= 1 && iconNumber <= 44)
+            {
+                // Construct the image file path
+                return $"@Resources/Images/img{iconNumber}.png";  // Make sure the path is correct
+            }
+
+            // Return a default image or placeholder in case of an invalid icon number
+            return "@Resources/Images/img1.png"; // Default or placeholder image
+        }*/
         private async Task<string> PictureDecisionMaker(string numOfPic)
         {
             // Define the base path to the images
@@ -128,72 +214,6 @@ namespace WeatherApp
 
             // If no matching image is found, return a default or error message
             return "Image not found";
-        }
-
-
-        // Function to fetch weather data from API
-        private async Task<string> FetchWeatherData(string locationKey)
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                string apiUrl = $"https://dataservice.accuweather.com/currentconditions/v1/{locationKey}";
-                // Build the complete URL with the API key, language, and details parameters
-                string fullUrl = $"{apiUrl}?apikey={apiKey}&language=en&details=true";
-
-                // Make the GET request
-                HttpResponseMessage response = await client.GetAsync(fullUrl);
-
-                // Check if the request was successful
-                if (response.IsSuccessStatusCode)
-                {
-                    // Read and return the raw JSON data
-                    string jsonData = await response.Content.ReadAsStringAsync();
-                    //System.Diagnostics.Debug.WriteLine("data jsou--------------------"+jsonData);
-                    return jsonData;
-                }
-                else
-                {
-                    // Handle error responses
-                    return $"Error: {response.StatusCode}";
-                }
-            }
-        }
-
-        private async Task<string> FetchLocationData(string q)
-        {
-            using (HttpClient httpClient = new HttpClient())
-            {
-                string fullUrl = $"{apiUrlLocation}?apikey={apiKey}&q={q}&language=en&details=true";
-
-                HttpResponseMessage response = await httpClient.GetAsync(fullUrl);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    string jsonData = await response.Content.ReadAsStringAsync ();
-
-                    return jsonData;
-                }
-                else
-                {
-                    return $"Error: {response.StatusCode}";
-                }
-            }
-        }
-
-        private async Task<string> GetKey()
-        {
-            Location location = await Geolocation.Default.GetLastKnownLocationAsync();
-
-            /*if (location == null)
-            {
-                // Handle the case where location is not available
-                await DisplayAlert("Error", "Location is unavailable. Please check location services.", "OK");
-                return null;
-            }*/
-
-            q = location.Latitude.ToString() + "," + location.Longitude.ToString();
-
-            return q;
         }
     }
 }
