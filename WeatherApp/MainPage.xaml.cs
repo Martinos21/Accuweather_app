@@ -73,8 +73,8 @@ namespace WeatherApp
                     int uvIndex = (int)weatherData["UVIndex"];
 
                     // Assign each value to its respective label
-                    TemperatureLabel.Text = $"Temperature: {temperature}°C";
-                    WeatherIconLabel.Text = $"Weather Icon: {weatherIcon}";
+                    TemperatureLabel.Text = $"{temperature}°C";
+                    //WeatherIconLabel.Text = $"Weather Icon: {weatherIcon}";
                     WeatherPicture.Source = await PictureDecisionMaker(weatherIcon.ToString());
                     HumidityLabel.Text = $"Humidity: {relativeHumidity}%";
                     WindSpeedLabel.Text = $"Wind Speed: {windSpeed} {windUnit}";
