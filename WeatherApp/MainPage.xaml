@@ -1,19 +1,31 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherApp.MainPage">
-    <StackLayout>
-        <Label x:Name="LocationLabel"/>
-        <Label x:Name="TemperatureLabel" Text="Temperature: " HorizontalOptions="Center"/>
-        <Label x:Name="WeatherIconLabel" Text="Weather Icon: " HorizontalOptions="Center"/>
-        <Image
-               x:Name="WeatherPicture"
-               WidthRequest="100"
-               HeightRequest="100"
-               HorizontalOptions="Center"/>
-        <Label x:Name="HumidityLabel" Text="Humidity: " HorizontalOptions="Center"/>
-        <Label x:Name="WindSpeedLabel" Text="Wind Speed: " HorizontalOptions="Center"/>
-        <Label x:Name="UVIndexLabel" Text="UV Index: " HorizontalOptions="Center"/>
-    </StackLayout>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <LinearGradientBrush x:Key="BackgroundBrush" StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FF00B0FF" Offset="0"/>
+                <GradientStop Color="#FF001F52" Offset="1"/>
+            </LinearGradientBrush>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ContentPage.Content>
+        <StackLayout Background="{StaticResource BackgroundBrush}">
+            <Label x:Name="LocationLabel"/>
+            <Label x:Name="TemperatureLabel" Text="Temperature: " HorizontalOptions="Center"/>
+            <Label x:Name="WeatherIconLabel" Text="Weather Icon: " HorizontalOptions="Center"/>
+            <Image
+                   x:Name="WeatherPicture"
+                   WidthRequest="100"
+                   HeightRequest="100"
+                   HorizontalOptions="Center"/>
+            <Label x:Name="HumidityLabel" Text="Humidity: " HorizontalOptions="Center"/>
+            <Label x:Name="WindSpeedLabel" Text="Wind Speed: " HorizontalOptions="Center"/>
+            <Label x:Name="UVIndexLabel" Text="UV Index: " HorizontalOptions="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>
 
 
