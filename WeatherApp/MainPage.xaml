@@ -13,13 +13,13 @@
 
     <ContentPage.Content>
         <StackLayout Background="{StaticResource BackgroundBrush}">
-            <Label x:Name="LocationLabel" HorizontalOptions="Center" FontSize="70"/>
+            <Label x:Name="LocationLabel" HorizontalOptions="Center" FontSize="Title"/>
             <Image
                    x:Name="WeatherPicture"
                    WidthRequest="200"
                    HeightRequest="200"
                    HorizontalOptions="Center"/>
-            <Label x:Name="TemperatureLabel" HorizontalOptions="Center" FontSize="50"/>
+            <Label x:Name="TemperatureLabel" HorizontalOptions="Center" FontSize="Header"/>
             <!--<Label x:Name="WeatherIconLabel" Text="Weather Icon: " HorizontalOptions="Center"/>-->
             <Label x:Name="HumidityLabel" Text="Humidity: " HorizontalOptions="Center"/>
             <Label x:Name="WindSpeedLabel" Text="Wind Speed: " HorizontalOptions="Center"/>
