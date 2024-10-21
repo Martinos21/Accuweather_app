@@ -25,10 +25,14 @@
             <Label x:Name="WindSpeedLabel" Text="Wind Speed: " HorizontalOptions="Center"/>
             <Label x:Name="UVIndexLabel" Text="UV Index: " HorizontalOptions="Center"/>
 
-            <BoxView HeightRequest="40" Color="Transparent"/>
-            
-            <FlexLayout Direction="Row" AlignItems="Center" JustifyContent="SpaceAround" Padding="10" Wrap="NoWrap" >
-                <Frame x:Name="HumidityFrame"
+
+
+            <Grid Padding="20"
+                  RowDefinitions="Auto"  
+                  ColumnDefinitions="*, *"
+                  RowSpacing="10"
+                  ColumnSpacing="10">
+                <Frame Grid.Row="0" Grid.Column="0"
                        WidthRequest="160"
                        HeightRequest="130"
                        BackgroundColor="#AAFFFFFF" 
@@ -37,7 +41,7 @@
                        Padding="15"
                        Margin="0,10"
                        BorderColor="Transparent">
-                
+
                     <StackLayout Spacing="10">
                         <Label Text="Humidity" HorizontalOptions="Center" />
                         <Label x:Name="HumidityLabel" Text="Humidity: " HorizontalOptions="Center"/>
@@ -45,7 +49,7 @@
                     </StackLayout>
                 </Frame>
 
-                <Frame x:Name="WindFrame"
+                <Frame Grid.Row="0" Grid.Column="1"
                        WidthRequest="160"
                        HeightRequest="130"
                        BackgroundColor="#AAFFFFFF" 
@@ -61,7 +65,7 @@
                         <Label x:Name="WindDirectionLabel" Text="Direction: " HorizontalOptions="Center"/>
                     </StackLayout>
                 </Frame>
-            </FlexLayout>
+            </Grid>
 
         </StackLayout>
     </ContentPage.Content>
