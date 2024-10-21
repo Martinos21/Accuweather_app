@@ -20,13 +20,35 @@
                    HeightRequest="200"
                    HorizontalOptions="Center"/>
             <Label x:Name="TemperatureLabel" HorizontalOptions="Center" FontSize="Header"/>
-            <!--<Label x:Name="WeatherIconLabel" Text="Weather Icon: " HorizontalOptions="Center"/>-->
-            <Label x:Name="HumidityLabel" Text="Humidity: " HorizontalOptions="Center"/>
+
+            
             <Label x:Name="WindSpeedLabel" Text="Wind Speed: " HorizontalOptions="Center"/>
             <Label x:Name="UVIndexLabel" Text="UV Index: " HorizontalOptions="Center"/>
+
+            <Frame x:Name="HumidityFrame"
+                   WidthRequest="250"
+                   HeightRequest="150"
+                   BackgroundColor="Transparent"
+                   CornerRadius="10"
+                   HasShadow="False" 
+                   Padding="15"
+                   Margin="0,10"
+                   BorderColor="Transparent">
+                <Grid>
+                    <!-- Semi-Transparent Overlay -->
+                    <BoxView Color="#AAFFFFFF" CornerRadius="10" Margin="-1"/>
+                    <!-- Adjust the margin -->
+
+                    <StackLayout Spacing="10">
+                        <Label Text="Humidity" HorizontalOptions="Center" />
+                        <Label x:Name="HumidityLabel" Text="Humidity: " HorizontalOptions="Center"/>
+                        <Label x:Name="DewPointLabel" Text="DewPoint is at " HorizontalOptions="Center"/>
+                    </StackLayout>
+                </Grid>
+            </Frame>
+
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
-
-
 

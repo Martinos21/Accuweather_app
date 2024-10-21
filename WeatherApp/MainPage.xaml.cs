@@ -71,12 +71,14 @@ namespace WeatherApp
                     double windSpeed = (double)weatherData["Wind"]["Speed"]["Metric"]["Value"];
                     string windUnit = (string)weatherData["Wind"]["Speed"]["Metric"]["Unit"];
                     int uvIndex = (int)weatherData["UVIndex"];
+                    int dewPoint = (int)weatherData["DewPoint"]["Metric"]["Value"];
 
                     // Assign each value to its respective label
                     TemperatureLabel.Text = $"{temperature}°C";
                     //WeatherIconLabel.Text = $"Weather Icon: {weatherIcon}";
                     WeatherPicture.Source = await PictureDecisionMaker(weatherIcon.ToString());
-                    HumidityLabel.Text = $"Humidity: {relativeHumidity}%";
+                    HumidityLabel.Text = $"{relativeHumidity}%";
+                    DewPointLabel.Text = $"DewPoint is at {dewPoint}°C";
                     WindSpeedLabel.Text = $"Wind Speed: {windSpeed} {windUnit}";
                     UVIndexLabel.Text = $"UV Index: {uvIndex}";
                 }
