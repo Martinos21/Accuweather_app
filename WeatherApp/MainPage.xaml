@@ -20,12 +20,13 @@
                    HeightRequest="200"
                    HorizontalOptions="Center"/>
             <Label x:Name="TemperatureLabel" HorizontalOptions="Center" FontSize="Header"/>
-
             
-            <Label x:Name="WindSpeedLabel" Text="Wind Speed: " HorizontalOptions="Center"/>
             <Label x:Name="UVIndexLabel" Text="UV Index: " HorizontalOptions="Center"/>
 
-
+            <FlexLayout HorizontalOptions="Center" JustifyContent="Center">
+                <Label x:Name="MinTempLabel" Text="Min: " HorizontalOptions="Center" Margin="10,0"/>
+                <Label x:Name="MaxTempLabel" Text="Max: " HorizontalOptions="Center" Margin="10,0"/>
+            </FlexLayout>
 
             <Grid Padding="20"
                   RowDefinitions="Auto"  
@@ -61,7 +62,7 @@
 
                     <StackLayout Spacing="10">
                         <Label Text="Wind" HorizontalOptions="Center" />
-                        <Label x:Name="WindLabel" Text="--" HorizontalOptions="Center"/>
+                        <Label x:Name="WindSpeedLabel" Text="--" HorizontalOptions="Center"/>
                         <Label x:Name="WindDirectionLabel" Text="Direction: " HorizontalOptions="Center"/>
                     </StackLayout>
                 </Frame>

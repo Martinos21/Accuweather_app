@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Devices.Sensors; // Required for Geolocation
+using Microsoft.Maui.Devices.Sensors; 
 using Newtonsoft.Json.Linq;
 
 
@@ -10,7 +10,7 @@ namespace WeatherApp
 {
     public partial class MainPage : ContentPage
     {
-        private readonly string apiKey = "CpHhhtXACFLd3NMlTwHEhpYCRRuBv7qC"; // Replace with your actual API key
+        private readonly string apiKey = "CpHhhtXACFLd3NMlTwHEhpYCRRuBv7qC"; 
 
         public MainPage()
         {
@@ -18,7 +18,6 @@ namespace WeatherApp
             FetchAndDisplayWeatherData();
         }
 
-        // Method to fetch and display weather data
         private async void FetchAndDisplayWeatherData()
         {
             string q = await GetLocationCoordinates();
@@ -26,25 +25,19 @@ namespace WeatherApp
 
             if (q != null)
             {
-                // Call a method to fetch the location key based on latitude and longitude
+
                 var (locationKey, localizedName) = await FetchLocationKey(q);
 
-
-                // Now use the location key to fetch the weather data
                 await FetchWeatherDataAndUpdateUI(locationKey);
 
-                // Display the raw JSON response in the label
-                //JsonResponseLabel.Text = jsonData;
                 LocationLabel.Text = localizedName;
             }
             else
             {
-                // Handle case where location is unavailable
                 await DisplayAlert("Error", "Unable to fetch location.", "OK");
             }
         }
 
-        // Method to fetch weather data from the API
         private async Task FetchWeatherDataAndUpdateUI(string locationKey)
         {
             using (HttpClient client = new HttpClient())
@@ -52,46 +45,43 @@ namespace WeatherApp
                 string apiUrl = $"https://dataservice.accuweather.com/currentconditions/v1/{locationKey}";
                 string fullUrl = $"{apiUrl}?apikey={apiKey}&language=en&details=true";
 
-                // Make the GET request
                 HttpResponseMessage response = await client.GetAsync(fullUrl);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    // Read the JSON response
                     string jsonData = await response.Content.ReadAsStringAsync();
 
-                    // Parse the JSON response (the response is an array)
                     JArray jsonArray = JArray.Parse(jsonData);
-                    JObject weatherData = (JObject)jsonArray[0];  // Access the first item in the array
+                    JObject weatherData = (JObject)jsonArray[0];  
 
-                    // Extract required fields
                     double temperature = (double)weatherData["Temperature"]["Metric"]["Value"];
                     int weatherIcon = (int)weatherData["WeatherIcon"];
                     int relativeHumidity = (int)weatherData["RelativeHumidity"];
                     double windSpeed = (double)weatherData["Wind"]["Speed"]["Metric"]["Value"];
                     string windUnit = (string)weatherData["Wind"]["Speed"]["Metric"]["Unit"];
+                    string windDirection = (string)weatherData["Wind"]["Direction"]["Localized"];
+                    int minTemp = (int)weatherData["TemperatureSummary"]["Past24HourRange"]["Minimum"]["Metric"]["Value"];
+                    int maxTemp = (int)weatherData["TemperatureSummary"]["Past24HourRange"]["Maximum"]["Metric"]["Value"];
                     int uvIndex = (int)weatherData["UVIndex"];
                     int dewPoint = (int)weatherData["DewPoint"]["Metric"]["Value"];
 
-                    // Assign each value to its respective label
                     TemperatureLabel.Text = $"{temperature}°C";
-                    //WeatherIconLabel.Text = $"Weather Icon: {weatherIcon}";
                     WeatherPicture.Source = await PictureDecisionMaker(weatherIcon.ToString());
                     HumidityLabel.Text = $"{relativeHumidity}%";
                     DewPointLabel.Text = $"DewPoint is at {dewPoint}°C";
                     WindSpeedLabel.Text = $"Wind Speed: {windSpeed} {windUnit}";
+                    WindDirectionLabel.Text =$"Wind direction: {windDirection}";
+                    MinTempLabel.Text = $"Min: {minTemp}°C";
+                    MaxTempLabel.Text = $"Max: {maxTemp}°C";
                     UVIndexLabel.Text = $"UV Index: {uvIndex}";
                 }
                 else
                 {
-                    // Handle error responses
                     await DisplayAlert("Error", $"Unable to fetch weather data: {response.StatusCode}", "OK");
                 }
             }
         }
 
-
-        // Method to get the current location coordinates (latitude, longitude)
         private async Task<string> GetLocationCoordinates()
         {
             try
@@ -100,24 +90,20 @@ namespace WeatherApp
 
                 if (location == null)
                 {
-                    // Handle the case where location is not available
                     await DisplayAlert("Error", "Location is unavailable. Please check location services.", "OK");
                     return null;
                 }
 
-                // Combine latitude and longitude into a single string format
                 string q = $"{location.Latitude},{location.Longitude}";
                 return q;
             }
             catch (Exception ex)
             {
-                // Handle any exceptions related to geolocation
                 await DisplayAlert("Error", $"An error occurred while retrieving location: {ex.Message}", "OK");
                 return null;
             }
         }
 
-        // Method to fetch the location key based on latitude and longitude
         private async Task<(string LocationKey, string LocalizedName)> FetchLocationKey(string coordinates)
         {
             using (HttpClient client = new HttpClient())
@@ -125,28 +111,22 @@ namespace WeatherApp
                 string apiUrl = $"https://dataservice.accuweather.com/locations/v1/cities/geoposition/search";
                 string fullUrl = $"{apiUrl}?apikey={apiKey}&q={coordinates}&language=en";
 
-                // Make the GET request to fetch the location key
                 HttpResponseMessage response = await client.GetAsync(fullUrl);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    // Read the JSON response
                     string jsonData = await response.Content.ReadAsStringAsync();
 
-                    // Parse the JSON data to extract the 'Key' and 'LocalizedName' fields
                     JObject jsonObject = JObject.Parse(jsonData);
 
-                    // Extract the location key
                     string locationKey = (string)jsonObject["Key"];
 
-                    // Extract the localized name (e.g., city name)
                     string localizedName = (string)jsonObject["LocalizedName"];
 
                     return (locationKey, localizedName);
                 }
                 else
                 {
-                    // Handle error responses
                     await DisplayAlert("Error", $"Unable to fetch location key: {response.StatusCode}", "OK");
                     return (null, null);
                 }
@@ -166,10 +146,8 @@ namespace WeatherApp
         }*/
         private async Task<string> PictureDecisionMaker(string numOfPic)
         {
-            // Define the base path to the images
             string imagePath = "Resources/Images/";
 
-            // Create a dictionary to map numbers to corresponding image filenames
             var imageDictionary = new Dictionary<string, string>
             {
                 { "1", "img1.png" },
@@ -208,13 +186,11 @@ namespace WeatherApp
                 { "44", "img44.png" }
             };
 
-            // Check if the input exists in the dictionary and return the image path
             if (imageDictionary.TryGetValue(numOfPic, out string fileName))
             {
                 return fileName;
             }
 
-            // If no matching image is found, return a default or error message
             return "Image not found";
         }
     }
