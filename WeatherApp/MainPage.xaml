@@ -32,7 +32,7 @@
             </FlexLayout>
 
             <Grid Padding="20"
-                  RowDefinitions="Auto"  
+                  RowDefinitions="Auto, Auto"  
                   ColumnDefinitions="*, *"
                   RowSpacing="10"
                   ColumnSpacing="10">
@@ -69,6 +69,39 @@
                         <Label x:Name="WindDirectionLabel" Text="Direction: " HorizontalOptions="Center"/>
                     </StackLayout>
                 </Frame>
+
+                <Frame Grid.Row="1" Grid.Column="0"
+                       WidthRequest="160"
+                       HeightRequest="130"
+                       BackgroundColor="#AAFFFFFF" 
+                       CornerRadius="10"
+                       HasShadow="False"
+                       Padding="15"
+                       Margin="0,10"
+                       BorderColor="Transparent">   
+
+                    <StackLayout Spacing="10">
+                        <Label Text="Pressure" HorizontalOptions="Center" />
+                        <Label x:Name="PressureLabel" Text="--" HorizontalOptions="Center"/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame Grid.Row="1" Grid.Column="1"
+                       WidthRequest="160"
+                       HeightRequest="130"
+                       BackgroundColor="#AAFFFFFF" 
+                       CornerRadius="10"
+                       HasShadow="False"
+                       Padding="15"
+                       Margin="0,10"
+                       BorderColor="Transparent">   
+
+                    <StackLayout Spacing="10">
+                        <Label Text="Visibility" HorizontalOptions="Center" />
+                        <Label x:Name="VisibilityLabel" Text="--" HorizontalOptions="Center"/>
+                    </StackLayout>
+                </Frame>
+
             </Grid>
 
         </StackLayout>

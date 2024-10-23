@@ -64,16 +64,22 @@ namespace WeatherApp
                     int maxTemp = (int)weatherData["TemperatureSummary"]["Past24HourRange"]["Maximum"]["Metric"]["Value"];
                     int uvIndex = (int)weatherData["UVIndex"];
                     int dewPoint = (int)weatherData["DewPoint"]["Metric"]["Value"];
+                    int visibility = (int)weatherData["Visibility"]["Metric"]["Value"];
+                    int pressure = (int)weatherData["Pressure"]["Metric"]["Value"];
+
 
                     TemperatureLabel.Text = $"{temperature}°C";
                     WeatherPicture.Source = await PictureDecisionMaker(weatherIcon.ToString());
                     HumidityLabel.Text = $"{relativeHumidity}%";
                     DewPointLabel.Text = $"DewPoint is at {dewPoint}°C";
-                    WindSpeedLabel.Text = $"Wind Speed: {windSpeed} {windUnit}";
-                    WindDirectionLabel.Text =$"Wind direction: {windDirection}";
+                    WindSpeedLabel.Text = $"Speed: {windSpeed} {windUnit}";
+                    WindDirectionLabel.Text =$"Direction: {windDirection}";
                     MinTempLabel.Text = $"Min: {minTemp}°C";
                     MaxTempLabel.Text = $"Max: {maxTemp}°C";
                     UVIndexLabel.Text = $"UV Index: {uvIndex}";
+                    VisibilityLabel.Text = $"Visibility is: {visibility} km";
+                    PressureLabel.Text = $"Pressure is: {pressure} hPa";
+
                 }
                 else
                 {
