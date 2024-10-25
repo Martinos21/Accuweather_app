@@ -76,7 +76,7 @@ namespace WeatherApp
                     WindDirectionLabel.Text =$"Direction: {windDirection}";
                     MinTempLabel.Text = $"Min: {minTemp}°C";
                     MaxTempLabel.Text = $"Max: {maxTemp}°C";
-                    UVIndexLabel.Text = $"UV Index: {uvIndex}";
+                    UVIndexLabel.Text = $"{uvIndex}";
                     VisibilityLabel.Text = $"Visibility is: {visibility} km";
                     PressureLabel.Text = $"Pressure is: {pressure} hPa";
 

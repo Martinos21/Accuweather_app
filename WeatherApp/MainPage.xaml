@@ -1,110 +1,131 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherApp.MainPage"
-             BackgroundColor="Transparent"
              Padding="0"
              Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <ResourceDictionary>
+            
             <LinearGradientBrush x:Key="BackgroundBrush" StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#FF00B0FF" Offset="0"/>
-                <GradientStop Color="#FF001F52" Offset="1"/>
+                <GradientStop Color="#FF2196F3" Offset="0.1"/>
+                
+                <GradientStop Color="#FF0D47A1" Offset="1"/>
+                
             </LinearGradientBrush>
+
+            
+            <Style x:Key="TitleLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Large" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="ValueLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Medium" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
+            <Style x:Key="ValueTextLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Small"/>
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
-
     <ContentPage.Content>
-        <StackLayout Background="{StaticResource BackgroundBrush}">
-            <Label x:Name="LocationLabel" HorizontalOptions="Center" FontSize="Title"/>
-            <Image
-                   x:Name="WeatherPicture"
-                   WidthRequest="200"
-                   HeightRequest="200"
-                   HorizontalOptions="Center"/>
-            <Label x:Name="TemperatureLabel" HorizontalOptions="Center" FontSize="Header"/>
+        <StackLayout Background="{StaticResource BackgroundBrush}" Padding="20">
             
-            <Label x:Name="UVIndexLabel" Text="UV Index: " HorizontalOptions="Center"/>
+            <Label x:Name="LocationLabel" Text="Mountain View" Style="{StaticResource TitleLabelStyle}" FontSize="28"/>
 
-            <FlexLayout HorizontalOptions="Center" JustifyContent="Center">
-                <Label x:Name="MinTempLabel" Text="Min: " HorizontalOptions="Center" Margin="10,0"/>
-                <Label x:Name="MaxTempLabel" Text="Max: " HorizontalOptions="Center" Margin="10,0"/>
-            </FlexLayout>
 
-            <Grid Padding="20"
-                  RowDefinitions="Auto, Auto"  
+            <Image
+                x:Name="WeatherPicture"
+                Source="sun_icon.png" 
+                WidthRequest="150"
+                HeightRequest="150"
+                HorizontalOptions="Center"
+                Margin="10"/>
+
+            <Label x:Name="TemperatureLabel" Text="23.5°C" Style="{StaticResource TitleLabelStyle}" FontSize="32"/>
+
+            <FlexLayout HorizontalOptions="Center" JustifyContent="Center" Margin="10,0">
+                    <Label x:Name="MinTempLabel" Text="Min: 12°C" Style="{StaticResource ValueLabelStyle}" Margin="20,0"/>
+                    <Label x:Name="MaxTempLabel" Text="Max: 27°C" Style="{StaticResource ValueLabelStyle}" Margin="20,0"/>
+                </FlexLayout>
+
+            
+                <Grid Padding="20"
+                  RowDefinitions="Auto, Auto, Auto"  
                   ColumnDefinitions="*, *"
                   RowSpacing="10"
                   ColumnSpacing="10">
-                <Frame Grid.Row="0" Grid.Column="0"
-                       WidthRequest="160"
-                       HeightRequest="130"
-                       BackgroundColor="#AAFFFFFF" 
-                       CornerRadius="10"
-                       HasShadow="False"
+                    
+                    <Frame Grid.Row="0" Grid.Column="0"
+                       BackgroundColor="#AAFFFFFF"
+                       CornerRadius="15"
+                       HasShadow="True"
                        Padding="15"
-                       Margin="0,10"
                        BorderColor="Transparent">
+                        <StackLayout>
+                            <Label Text="Humidity" Style="{StaticResource TitleLabelStyle}"/>
+                            <Label x:Name="HumidityLabel" Text="21%" Style="{StaticResource ValueTextLabelStyle}"/>
+                            <Label x:Name="DewPointLabel" Text="DewPoint: 0°C" Style="{StaticResource ValueTextLabelStyle}"/>
+                        </StackLayout>
+                    </Frame>
 
-                    <StackLayout Spacing="10">
-                        <Label Text="Humidity" HorizontalOptions="Center" />
-                        <Label x:Name="HumidityLabel" Text="Humidity: " HorizontalOptions="Center"/>
-                        <Label x:Name="DewPointLabel" Text="DewPoint is at " HorizontalOptions="Center"/>
-                    </StackLayout>
-                </Frame>
-
-                <Frame Grid.Row="0" Grid.Column="1"
-                       WidthRequest="160"
-                       HeightRequest="130"
-                       BackgroundColor="#AAFFFFFF" 
-                       CornerRadius="10"
-                       HasShadow="False"
+                    
+                    <Frame Grid.Row="0" Grid.Column="1"
+                       BackgroundColor="#AAFFFFFF"
+                       CornerRadius="15"
+                       HasShadow="True"
                        Padding="15"
-                       Margin="0,10"
                        BorderColor="Transparent">
+                        <StackLayout>
+                            <Label Text="Wind" Style="{StaticResource TitleLabelStyle}"/>
+                            <Label x:Name="WindSpeedLabel" Text="5.2 km/h" Style="{StaticResource ValueTextLabelStyle}"/>
+                            <Label x:Name="WindDirectionLabel" Text="Direction: N" Style="{StaticResource ValueTextLabelStyle}"/>
+                        </StackLayout>
+                    </Frame>
 
-                    <StackLayout Spacing="10">
-                        <Label Text="Wind" HorizontalOptions="Center" />
-                        <Label x:Name="WindSpeedLabel" Text="--" HorizontalOptions="Center"/>
-                        <Label x:Name="WindDirectionLabel" Text="Direction: " HorizontalOptions="Center"/>
-                    </StackLayout>
-                </Frame>
-
-                <Frame Grid.Row="1" Grid.Column="0"
-                       WidthRequest="160"
-                       HeightRequest="130"
-                       BackgroundColor="#AAFFFFFF" 
-                       CornerRadius="10"
-                       HasShadow="False"
+                    
+                    <Frame Grid.Row="1" Grid.Column="0"
+                       BackgroundColor="#AAFFFFFF"
+                       CornerRadius="15"
+                       HasShadow="True"
                        Padding="15"
-                       Margin="0,10"
-                       BorderColor="Transparent">   
+                       BorderColor="Transparent">
+                        <StackLayout>
+                            <Label Text="Pressure" Style="{StaticResource TitleLabelStyle}"/>
+                            <Label x:Name="PressureLabel" Text="--" Style="{StaticResource ValueTextLabelStyle}"/>
+                        </StackLayout>
+                    </Frame>
 
-                    <StackLayout Spacing="10">
-                        <Label Text="Pressure" HorizontalOptions="Center" />
-                        <Label x:Name="PressureLabel" Text="--" HorizontalOptions="Center"/>
-                    </StackLayout>
-                </Frame>
-
-                <Frame Grid.Row="1" Grid.Column="1"
-                       WidthRequest="160"
-                       HeightRequest="130"
-                       BackgroundColor="#AAFFFFFF" 
-                       CornerRadius="10"
-                       HasShadow="False"
+                    
+                    <Frame Grid.Row="1" Grid.Column="1"
+                       BackgroundColor="#AAFFFFFF"
+                       CornerRadius="15"
+                       HasShadow="True"
                        Padding="15"
-                       Margin="0,10"
-                       BorderColor="Transparent">   
+                       BorderColor="Transparent">
+                        <StackLayout>
+                            <Label Text="Visibility" Style="{StaticResource TitleLabelStyle}"/>
+                            <Label x:Name="VisibilityLabel" Text="--" Style="{StaticResource ValueTextLabelStyle}"/>
+                        </StackLayout>
+                    </Frame>
 
-                    <StackLayout Spacing="10">
-                        <Label Text="Visibility" HorizontalOptions="Center" />
-                        <Label x:Name="VisibilityLabel" Text="--" HorizontalOptions="Center"/>
+                <Frame Grid.Row="2" Grid.Column="0"
+                       BackgroundColor="#AAFFFFFF"
+                       CornerRadius="15"
+                       HasShadow="True"
+                       Padding="15"
+                       BorderColor="Transparent">
+                    <StackLayout>
+                        <Label Text="UV Index" Style="{StaticResource TitleLabelStyle}"/>
+                        <Label x:Name="UVIndexLabel" Text="--" Style="{StaticResource ValueTextLabelStyle}"/>
                     </StackLayout>
                 </Frame>
-
             </Grid>
-
         </StackLayout>
     </ContentPage.Content>
-</ContentPage>
-
+    </ContentPage>
