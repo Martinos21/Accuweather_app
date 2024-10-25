@@ -69,7 +69,7 @@ namespace WeatherApp
 
 
                     TemperatureLabel.Text = $"{temperature}°C";
-                    WeatherPicture.Source = await PictureDecisionMaker(weatherIcon.ToString());
+                    WeatherPicture.Source = PictureDecisionMaker(weatherIcon.ToString());
                     HumidityLabel.Text = $"{relativeHumidity}%";
                     DewPointLabel.Text = $"DewPoint is at {dewPoint}°C";
                     WindSpeedLabel.Text = $"Speed: {windSpeed} {windUnit}";
@@ -150,9 +150,9 @@ namespace WeatherApp
             // Return a default image or placeholder in case of an invalid icon number
             return "@Resources/Images/img1.png"; // Default or placeholder image
         }*/
-        private async Task<string> PictureDecisionMaker(string numOfPic)
+        private string PictureDecisionMaker(string numOfPic)
         {
-            string imagePath = "Resources/Images/";
+            //string imagePath = "Resources/Images/";
 
             var imageDictionary = new Dictionary<string, string>
             {
