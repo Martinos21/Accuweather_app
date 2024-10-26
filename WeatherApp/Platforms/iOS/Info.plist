@@ -10,5 +10,7 @@
 	<string>Your location is required for xyz benefits for you</string>
 	<key>CFBundleIdentifier</key>
 	<string>MT.Hokus</string>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/appicon.appiconset</string>
 </dict>
 </plist>
