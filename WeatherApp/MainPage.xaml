@@ -36,7 +36,7 @@
     <ContentPage.Content>
         <StackLayout Background="{StaticResource BackgroundBrush}" Padding="20">
             
-            <Label x:Name="LocationLabel" Text="Mountain View" Style="{StaticResource TitleLabelStyle}" FontSize="28"/>
+            <Label x:Name="LocationLabel" Text="--" Style="{StaticResource TitleLabelStyle}" FontSize="28"/>
 
 
             <Image
@@ -50,8 +50,8 @@
             <Label x:Name="TemperatureLabel" Text="23.5°C" Style="{StaticResource TitleLabelStyle}" FontSize="32"/>
 
             <FlexLayout HorizontalOptions="Center" JustifyContent="Center" Margin="10,0">
-                    <Label x:Name="MinTempLabel" Text="Min: 12°C" Style="{StaticResource ValueLabelStyle}" Margin="20,0"/>
-                    <Label x:Name="MaxTempLabel" Text="Max: 27°C" Style="{StaticResource ValueLabelStyle}" Margin="20,0"/>
+                    <Label x:Name="MinTempLabel" Text="Min: --°C" Style="{StaticResource ValueLabelStyle}" Margin="20,0"/>
+                    <Label x:Name="MaxTempLabel" Text="Max: --°C" Style="{StaticResource ValueLabelStyle}" Margin="20,0"/>
                 </FlexLayout>
 
             
@@ -69,8 +69,8 @@
                        BorderColor="Transparent">
                         <StackLayout>
                             <Label Text="Humidity" Style="{StaticResource TitleLabelStyle}"/>
-                            <Label x:Name="HumidityLabel" Text="21%" Style="{StaticResource ValueTextLabelStyle}"/>
-                            <Label x:Name="DewPointLabel" Text="DewPoint: 0°C" Style="{StaticResource ValueTextLabelStyle}"/>
+                            <Label x:Name="HumidityLabel" Text="--%" Style="{StaticResource ValueTextLabelStyle}"/>
+                            <Label x:Name="DewPointLabel" Text="DewPoint: --°C" Style="{StaticResource ValueTextLabelStyle}"/>
                         </StackLayout>
                     </Frame>
 
@@ -83,8 +83,8 @@
                        BorderColor="Transparent">
                         <StackLayout>
                             <Label Text="Wind" Style="{StaticResource TitleLabelStyle}"/>
-                            <Label x:Name="WindSpeedLabel" Text="5.2 km/h" Style="{StaticResource ValueTextLabelStyle}"/>
-                            <Label x:Name="WindDirectionLabel" Text="Direction: N" Style="{StaticResource ValueTextLabelStyle}"/>
+                            <Label x:Name="WindSpeedLabel" Text="-- km/h" Style="{StaticResource ValueTextLabelStyle}"/>
+                            <Label x:Name="WindDirectionLabel" Text="Direction: --" Style="{StaticResource ValueTextLabelStyle}"/>
                         </StackLayout>
                     </Frame>
 
