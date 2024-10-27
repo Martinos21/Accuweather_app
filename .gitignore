@@ -150,6 +150,9 @@ coverage*.json
 coverage*.xml
 coverage*.info
 
+# Ignore Settings.cs file containing sensitive information
+Settings.cs
+
 # Visual Studio code coverage results
 *.coverage
 *.coveragexml
@@ -376,3 +379,7 @@ Directory.Build.Override.props
 
 # Only the "snapshots" directory should be added to Git, not the "snapshots-diff" directory
 snapshots-diff/
+
+# Ignore the settings file containing API keys
+appsettings.json
+

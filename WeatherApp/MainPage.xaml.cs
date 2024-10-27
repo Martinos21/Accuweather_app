@@ -1,19 +1,27 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.Devices.Sensors; 
 using Newtonsoft.Json.Linq;
+using System.IO;
+using System.Text.Json;
+using key;
 
 
 namespace WeatherApp
 {
     public partial class MainPage : ContentPage
     {
-        private readonly string apiKey = "CpHhhtXACFLd3NMlTwHEhpYCRRuBv7qC"; 
+        //private readonly string apiKey = "CpHhhtXACFLd3NMlTwHEhpYCRRuBv7qC"; 
+        private readonly Settings mySettings = new Settings();
+        private readonly string apiKey;
+
 
         public MainPage()
         {
+            apiKey = mySettings.ApiKey;
             InitializeComponent();
             FetchAndDisplayWeatherData();
         }
