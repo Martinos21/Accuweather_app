@@ -29,7 +29,6 @@ namespace WeatherApp
         private async void FetchAndDisplayWeatherData()
         {
             string q = await GetLocationCoordinates();
-            Console.WriteLine(q + "a-------------------------------------------------------------");
 
             if (q != null)
             {
@@ -146,18 +145,7 @@ namespace WeatherApp
                 }
             }
         }
-        /*private string PictureDecisionMaker(string iconNum)
-        {
-            // Ensure iconNum is a valid number and within range
-            if (int.TryParse(iconNum, out int iconNumber) && iconNumber >= 1 && iconNumber <= 44)
-            {
-                // Construct the image file path
-                return $"@Resources/Images/img{iconNumber}.png";  // Make sure the path is correct
-            }
 
-            // Return a default image or placeholder in case of an invalid icon number
-            return "@Resources/Images/img1.png"; // Default or placeholder image
-        }*/
         private string PictureDecisionMaker(string numOfPic)
         {
             //string imagePath = "Resources/Images/";
