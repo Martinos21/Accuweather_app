@@ -34,39 +34,38 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <StackLayout Background="{StaticResource BackgroundBrush}" Padding="20">
-            
-            <Label x:Name="LocationLabel" Text="--" Style="{StaticResource TitleLabelStyle}" FontSize="28"/>
+        <ScrollView>
+            <StackLayout Background="{StaticResource BackgroundBrush}" Padding="20">
 
+                <Label x:Name="LocationLabel" Text="--" Style="{StaticResource TitleLabelStyle}" FontSize="28"/>
 
-            <Image
-                x:Name="WeatherPicture"
-                Source="sun_icon.png" 
-                WidthRequest="150"
-                HeightRequest="150"
-                HorizontalOptions="Center"
-                Margin="10"/>
+                <Image
+                    x:Name="WeatherPicture"
+                    Source="sun_icon.png" 
+                    WidthRequest="150"
+                    HeightRequest="150"
+                    HorizontalOptions="Center"
+                    Margin="10"/>
 
-            <Label x:Name="TemperatureLabel" Text="23.5°C" Style="{StaticResource TitleLabelStyle}" FontSize="32"/>
+                <Label x:Name="TemperatureLabel" Text="23.5°C" Style="{StaticResource TitleLabelStyle}" FontSize="32"/>
 
-            <FlexLayout HorizontalOptions="Center" JustifyContent="Center" Margin="10,0">
+                <FlexLayout HorizontalOptions="Center" JustifyContent="Center" Margin="10,0">
                     <Label x:Name="MinTempLabel" Text="Min: --°C" Style="{StaticResource ValueLabelStyle}" Margin="20,0"/>
                     <Label x:Name="MaxTempLabel" Text="Max: --°C" Style="{StaticResource ValueLabelStyle}" Margin="20,0"/>
                 </FlexLayout>
 
-            
                 <Grid Padding="20"
-                  RowDefinitions="Auto, Auto, Auto"  
-                  ColumnDefinitions="*, *"
-                  RowSpacing="10"
-                  ColumnSpacing="10">
-                    
+                      RowDefinitions="Auto, Auto, Auto"  
+                      ColumnDefinitions="*, *"
+                      RowSpacing="10"
+                      ColumnSpacing="10">
+
                     <Frame Grid.Row="0" Grid.Column="0"
-                       BackgroundColor="#AAFFFFFF"
-                       CornerRadius="15"
-                       HasShadow="True"
-                       Padding="15"
-                       BorderColor="Transparent">
+                           BackgroundColor="#AAFFFFFF"
+                           CornerRadius="15"
+                           HasShadow="True"
+                           Padding="15"
+                           BorderColor="Transparent">
                         <StackLayout>
                             <Label Text="Humidity" Style="{StaticResource TitleLabelStyle}"/>
                             <Label x:Name="HumidityLabel" Text="--%" Style="{StaticResource ValueTextLabelStyle}"/>
@@ -74,13 +73,13 @@
                         </StackLayout>
                     </Frame>
 
-                    
+
                     <Frame Grid.Row="0" Grid.Column="1"
-                       BackgroundColor="#AAFFFFFF"
-                       CornerRadius="15"
-                       HasShadow="True"
-                       Padding="15"
-                       BorderColor="Transparent">
+                           BackgroundColor="#AAFFFFFF"
+                           CornerRadius="15"
+                           HasShadow="True"
+                           Padding="15"
+                           BorderColor="Transparent">
                         <StackLayout>
                             <Label Text="Wind" Style="{StaticResource TitleLabelStyle}"/>
                             <Label x:Name="WindSpeedLabel" Text="-- km/h" Style="{StaticResource ValueTextLabelStyle}"/>
@@ -88,44 +87,45 @@
                         </StackLayout>
                     </Frame>
 
-                    
+
                     <Frame Grid.Row="1" Grid.Column="0"
-                       BackgroundColor="#AAFFFFFF"
-                       CornerRadius="15"
-                       HasShadow="True"
-                       Padding="15"
-                       BorderColor="Transparent">
+                           BackgroundColor="#AAFFFFFF"
+                           CornerRadius="15"
+                           HasShadow="True"
+                           Padding="15"
+                           BorderColor="Transparent">
                         <StackLayout>
                             <Label Text="Pressure" Style="{StaticResource TitleLabelStyle}"/>
                             <Label x:Name="PressureLabel" Text="--" Style="{StaticResource ValueTextLabelStyle}"/>
                         </StackLayout>
                     </Frame>
 
-                    
+
                     <Frame Grid.Row="1" Grid.Column="1"
-                       BackgroundColor="#AAFFFFFF"
-                       CornerRadius="15"
-                       HasShadow="True"
-                       Padding="15"
-                       BorderColor="Transparent">
+                           BackgroundColor="#AAFFFFFF"
+                           CornerRadius="15"
+                           HasShadow="True"
+                           Padding="15"
+                           BorderColor="Transparent">
                         <StackLayout>
                             <Label Text="Visibility" Style="{StaticResource TitleLabelStyle}"/>
                             <Label x:Name="VisibilityLabel" Text="--" Style="{StaticResource ValueTextLabelStyle}"/>
                         </StackLayout>
                     </Frame>
 
-                <Frame Grid.Row="2" Grid.Column="0"
-                       BackgroundColor="#AAFFFFFF"
-                       CornerRadius="15"
-                       HasShadow="True"
-                       Padding="15"
-                       BorderColor="Transparent">
-                    <StackLayout>
-                        <Label Text="UV Index" Style="{StaticResource TitleLabelStyle}"/>
-                        <Label x:Name="UVIndexLabel" Text="--" Style="{StaticResource ValueTextLabelStyle}"/>
-                    </StackLayout>
-                </Frame>
-            </Grid>
-        </StackLayout>
+                    <Frame Grid.Row="2" Grid.Column="0"
+                           BackgroundColor="#AAFFFFFF"
+                           CornerRadius="15"
+                           HasShadow="True"
+                           Padding="15"
+                           BorderColor="Transparent">
+                        <StackLayout>
+                            <Label Text="UV Index" Style="{StaticResource TitleLabelStyle}"/>
+                            <Label x:Name="UVIndexLabel" Text="--" Style="{StaticResource ValueTextLabelStyle}"/>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
     </ContentPage>
