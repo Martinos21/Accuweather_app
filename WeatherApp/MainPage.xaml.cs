@@ -23,7 +23,13 @@ namespace WeatherApp
         {
             apiKey = mySettings.ApiKey;
             InitializeComponent();
-            FetchAndDisplayWeatherData();
+            //FetchAndDisplayWeatherData();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            FetchAndDisplayWeatherData() ;
         }
 
         private async void FetchAndDisplayWeatherData()
