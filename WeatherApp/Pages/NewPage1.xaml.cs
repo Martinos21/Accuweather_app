@@ -36,7 +36,7 @@ public partial class NewPage1 : ContentPage
         using (HttpClient client = new HttpClient())
         {
             string apiUrl = $"http://dataservice.accuweather.com/locations/v1/cities/search";
-            string fullUrl = $"{apiUrl}?apikey={apiKey}&language=en&details=true";
+            string fullUrl = $"{apiUrl}?apikey={apiKey}&q={cityName}&language=en&details=true";
 
             HttpResponseMessage response = await client.GetAsync(fullUrl);
 
