@@ -1,19 +1,20 @@
-﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="WeatherApp.MainPage"
-             Padding="0"
-             Shell.NavBarIsVisible="False">
+             x:Class="WeatherApp.Pages.HomePage"
+             Title="HomePage">
+    
     <ContentPage.Resources>
         <ResourceDictionary>
-            
+
             <LinearGradientBrush x:Key="BackgroundBrush" StartPoint="0,0" EndPoint="1,1">
                 <GradientStop Color="#FF2196F3" Offset="0.1"/>
-                
+
                 <GradientStop Color="#FF0D47A1" Offset="1"/>
-                
+
             </LinearGradientBrush>
 
-            
+
             <Style x:Key="TitleLabelStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="Large" />
                 <Setter Property="FontAttributes" Value="Bold" />
@@ -128,4 +129,4 @@
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
-    </ContentPage>
+</ContentPage>
