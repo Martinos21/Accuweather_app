@@ -1,22 +1,47 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherApp.Pages.NewPage1"
              Title="NewPage1">
-    <VerticalStackLayout Padding="20"
-                         HorizontalOptions="Center">
+    <VerticalStackLayout Padding="20">
 
-        <HorizontalStackLayout Spacing="10"
-                               HorizontalOptions="Center">
+        <!-- Grid layout for SearchBar and Button in the same line -->
+        <Grid ColumnDefinitions="*, Auto"
+              HorizontalOptions="FillAndExpand">
 
-            <SearchBar x:Name="SearchBarInput"
-                       Placeholder="Type to search..."
-                       WidthRequest="200" />
+            <!-- Rounded SearchBar inside a Frame for rounded corners -->
+            <Frame Grid.Column="0"
+                   CornerRadius="20"
+                   HasShadow="False"
+                   Padding="0"
+                   BackgroundColor="LightGray">
+                <SearchBar x:Name="SearchBarInput"
+                           Placeholder="Type to search..."
+                           HorizontalOptions="FillAndExpand"
+                           BackgroundColor="White" />
+            </Frame>
 
+            <!-- Rounded Button with CornerRadius -->
             <Button Text="Save"
                     Clicked="OnSaveButtonClicked"
-                    HorizontalOptions="Center" />
-        </HorizontalStackLayout>
+                    Grid.Column="1"
+                    WidthRequest="100"
+                    CornerRadius="20"
+                    HorizontalOptions="End"
+                    BackgroundColor="Blue"
+                    TextColor="White" />
+        </Grid>
+
+        <BoxView HeightRequest="1" 
+         HorizontalOptions="FillAndExpand" 
+         BackgroundColor="Gray" 
+         Margin="0,10" />
+
+        <Label x:Name="LocationLabel" Text="--" Style="{StaticResource TitleLabelStyle}" FontSize="28"/>
+
+
 
     </VerticalStackLayout>
 </ContentPage>
+
+
