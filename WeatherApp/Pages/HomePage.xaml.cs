@@ -70,14 +70,14 @@ public partial class HomePage : ContentPage
                 int pressure = (int)weatherData["Pressure"]["Metric"]["Value"];
 
 
-                TemperatureLabel.Text = $"{temperature}캜";
+                TemperatureLabel.Text = $"{temperature}째C";
                 WeatherPicture.Source = PictureDecisionMaker(weatherIcon.ToString());
                 HumidityLabel.Text = $"{relativeHumidity}%";
-                DewPointLabel.Text = $"DewPoint is at {dewPoint}캜";
+                DewPointLabel.Text = $"DewPoint is at {dewPoint}째C";
                 WindSpeedLabel.Text = $"Speed: {windSpeed} {windUnit}";
                 WindDirectionLabel.Text = $"Direction: {windDirection}";
-                MinTempLabel.Text = $"Min: {minTemp}캜";
-                MaxTempLabel.Text = $"Max: {maxTemp}캜";
+                MinTempLabel.Text = $"Min: {minTemp}째C";
+                MaxTempLabel.Text = $"Max: {maxTemp}째C";
                 UVIndexLabel.Text = $"{uvIndex}";
                 VisibilityLabel.Text = $"Visibility is: {visibility} km";
                 PressureLabel.Text = $"Pressure is: {pressure} hPa";
