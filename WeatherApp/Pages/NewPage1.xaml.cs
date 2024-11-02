@@ -80,11 +80,11 @@ public partial class NewPage1 : ContentPage
                 DayImageFourth.Source = PictureDecisionMaker(icon4);
                 DayImageFifth.Source = PictureDecisionMaker(icon5);
 
-                string final1 = $"{date1} Min: {min1} Max: {max1} plus {icon1}";
-                string final2 = $"{date2} Min: {min2} Max: {max2} plus {icon2}";
-                string final3 = $"{date3} Min: {min3} Max: {max3} plys {icon3}";
-                string final4 = $"{date4} Min: {min4} Max: {max4} plus {icon4}";
-                string final5 = $"{date5} Min: {min5} Max: {max5} plus {icon5}";
+                string final1 = $"{date1} Min: {min1} Max: {max1} ";
+                string final2 = $"{date2} Min: {min2} Max: {max2} ";
+                string final3 = $"{date3} Min: {min3} Max: {max3} ";
+                string final4 = $"{date4} Min: {min4} Max: {max4} ";
+                string final5 = $"{date5} Min: {min5} Max: {max5} ";
 
                 DayLabelFirst.Text = final1;
                 DayLabelSecond.Text = final2;
