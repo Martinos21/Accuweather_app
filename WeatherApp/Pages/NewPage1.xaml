@@ -39,13 +39,20 @@
         <Grid ColumnDefinitions="*, Auto"
               HorizontalOptions="FillAndExpand">
 
+            <Border Stroke="#C49B33"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 10,10,10,10"
+                    Padding="2,8"
+                    HorizontalOptions="FillAndExpand">
 
                 <SearchBar x:Name="SearchBarInput"
                            Placeholder="Type to search..."
                            HorizontalOptions="FillAndExpand"
-                           BackgroundColor="#1e1e1e" />
-            
+                           BackgroundColor="White" />
 
+            </Border>
+
+            
             <Button Text="Save"
                     Clicked="OnSaveButtonClicked"
                     Grid.Column="1"
