@@ -36,7 +36,7 @@ public partial class NewPage1 : ContentPage
     {
         using (HttpClient client = new HttpClient())
         {
-            string apiUrl = $"http://dataservice.accuweather.com/forecasts/v1/daily/5day/{locationKey}";
+            string apiUrl = $"https://dataservice.accuweather.com/forecasts/v1/daily/5day/{locationKey}";
             string fullUrl = $"{apiUrl}?apikey={apiKey}&language=en&details=false&metric=true";
 
             HttpResponseMessage response = await client.GetAsync(fullUrl);
