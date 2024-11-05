@@ -9,3 +9,5 @@ Targeting iOS 18 and Android 14
 - Geolocation library
 
 # Installation 
+- Use git clone https://github.com/Martinos21/Accuweather_app.git and build it with your own apikey
+- Download APK file
