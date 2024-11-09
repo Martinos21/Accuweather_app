@@ -39,7 +39,7 @@
         <Grid ColumnDefinitions="*, Auto"
               HorizontalOptions="FillAndExpand">
 
-            <Border Stroke="#C49B33"
+            <Border Stroke="Transparent"
                     StrokeThickness="1"
                     StrokeShape="RoundRectangle 10,10,10,10"
                     Padding="2,8"
